@@ -106,3 +106,23 @@ async def new_game(db: Session = Depends(get_db)):
     # as we didn't pass any response object to the AjaxResponse initializer, response() method will return dictionary
     return ajax.assign("#some-html-element-id", f"Received id: {id}").response()
 ```
+
+## Development
+
+First install `pre-commit`
+```shell
+$ pip install pre-commit
+$ pre-commit install
+```
+
+### Publishing JS
+```shell
+$ npm version patch
+$ npm publish
+```
+
+### Publishing Python
+```shell
+$ python -m build
+$ twine upload dist/*
+```
