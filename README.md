@@ -12,7 +12,17 @@ $ pip install beeflow-ajax
 $ npm i @beeflow/beeflow_ajax_js
 ```
 
-In the css and js folders you can find files, that you need to add to your HTML file.
+or use cdn
+
+```html
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@beeflow/beeflow_ajax_js@1.0.2/css/BeeflowAjax.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@beeflow/beeflow_ajax_js@1.0.2/js/js-url-2.3.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@beeflow/beeflow_ajax_js@1.0.2/js/BeeflowAjax.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@beeflow/beeflow_ajax_js@1.0.2/js/BeeflowAjaxSwalMessages.js"></script>
+```
+
+Where
 
 * `css/BeeflowAjax.css` - declaration for classes for IDE helper
 * `js/js-url-2.3.0.min.js` - library used by
