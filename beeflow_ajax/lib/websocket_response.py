@@ -10,14 +10,21 @@ from beeflow_ajax.lib import AjaxResponse
 class WebSocketResponse(AjaxResponse):
     INIT_WEBSOCKET_FORMS = "initWebsocketForms"
 
-    async def send_json(self, v: Optional[dict[str, Any]] = None):
+    async def send_json(
+        self, v: Optional[dict[str, Any] | list[dict[str, Any]]] = None
+    ):
         """This command is available only for the WebSockets."""
-        response = json.dumps((self.commands or {}) | (v or {}))
+        if isinstance(v, dict):
+            v = [v]
+
+        self.commands.append(v or [])
+
+        response = json.dumps((self.commands or []))
         self.commands = []
 
         await self.response_.send_json(response)
 
     def init_websocket_forms(self) -> Self:
         """Initialize WebSockets forms."""
-        self.__add_command(self.INIT_WEBSOCKET_FORMS)
+        self._add_command(self.INIT_WEBSOCKET_FORMS)
         return self

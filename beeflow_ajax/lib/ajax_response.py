@@ -73,32 +73,32 @@ class AjaxResponse:
 
     def alert(self, msg: str) -> Self:
         """Prepares alert command."""
-        self.__add_command(self.ALERT, {}, str(msg))
+        self._add_command(self.ALERT, {}, str(msg))
         return self
 
     def alert_success(self, msg: str, title: str = "") -> Self:
         """Prepares success message command."""
-        self.__add_command(self.ALERT_SUCCESS, {"title": title}, str(msg))
+        self._add_command(self.ALERT_SUCCESS, {"title": title}, str(msg))
         return self
 
     def alert_error(self, msg: str, title: str = "") -> Self:
         """Prepares error message command."""
-        self.__add_command(self.ALERT_ERROR, {"title": title}, str(msg))
+        self._add_command(self.ALERT_ERROR, {"title": title}, str(msg))
         return self
 
     def alert_warning(self, msg: str, title: str = "") -> Self:
         """Prepares warning message command."""
-        self.__add_command(self.ALERT_WARNING, {"title": title}, str(msg))
+        self._add_command(self.ALERT_WARNING, {"title": title}, str(msg))
         return self
 
     def alert_info(self, msg: str, title: str = "") -> Self:
         """Prepares info message command."""
-        self.__add_command(self.ALERT_INFO, {"title": title}, str(msg))
+        self._add_command(self.ALERT_INFO, {"title": title}, str(msg))
         return self
 
     def debug(self, data) -> Self:
         """Prepares debug command."""
-        self.__add_command(self.DEBUG, {}, data)
+        self._add_command(self.DEBUG, {}, data)
         return self
 
     def append(self, element: str, value: str) -> Self:
@@ -106,7 +106,7 @@ class AjaxResponse:
 
         The element can be #id, .class or just tag ex. p
         """
-        self.__add_command(self.APPEND, {"id": element}, value)
+        self._add_command(self.APPEND, {"id": element}, value)
         return self
 
     def assign(self, element: str, value: str) -> Self:
@@ -114,32 +114,32 @@ class AjaxResponse:
 
         The element can be #id, .class or HTML tag.
         """
-        self.__add_command(self.ASSIGN, {"id": element}, value)
+        self._add_command(self.ASSIGN, {"id": element}, value)
         return self
 
     def redirect(self, url: str) -> Self:
         """Redirect command for url redirection."""
-        self.__add_command(self.REDIRECT, {"url": url})
+        self._add_command(self.REDIRECT, {"url": url})
         return self
 
     def reload_location(self) -> Self:
         """Reload location command."""
-        self.__add_command(self.RELOAD_LOCATION)
+        self._add_command(self.RELOAD_LOCATION)
         return self
 
     def remove(self, element: str) -> Self:
         """Removes element by #id, .class or HTML tag."""
-        self.__add_command(self.REMOVE, {"id": element})
+        self._add_command(self.REMOVE, {"id": element})
         return self
 
     def add_class(self, element: str, class_name: str) -> Self:
         """Adds class to element which can be #id, .class or HTML tag."""
-        self.__add_command(self.ADD_CLASS, {"id": element}, class_name)
+        self._add_command(self.ADD_CLASS, {"id": element}, class_name)
         return self
 
     def remove_class(self, element: str, class_name: str = None) -> Self:
         """Removes class from element which can be #id, .class or HTML tag."""
-        self.__add_command(self.REMOVE_CLASS, {"id": element}, class_name)
+        self._add_command(self.REMOVE_CLASS, {"id": element}, class_name)
         return self
 
     def set_class(self, element: str, class_name: str) -> Self:
@@ -158,61 +158,61 @@ class AjaxResponse:
 
     def script(self, javascript: str) -> Self:
         """Allows send javascript script to frontend."""
-        self.__add_command(self.RUN_SCRIPT, {}, javascript)
+        self._add_command(self.RUN_SCRIPT, {}, javascript)
         return self
 
     def show(self, element: str) -> Self:
         """Shows element."""
-        self.__add_command(self.SHOW, {"id": element})
+        self._add_command(self.SHOW, {"id": element})
         return self
 
     def hide(self, element: str) -> Self:
         """Hides element."""
-        self.__add_command(self.HIDE, {"id": element})
+        self._add_command(self.HIDE, {"id": element})
         return self
 
     def insert_before(self, element: str, value: str) -> Self:
         """Inserts value before element."""
-        self.__add_command(self.INSERT_BEFORE, {"id": element}, value)
+        self._add_command(self.INSERT_BEFORE, {"id": element}, value)
         return self
 
     def init_ajax_links(self) -> Self:
         """Initialize ajax links."""
-        self.__add_command(self.INIT_AJAX_LINKS)
+        self._add_command(self.INIT_AJAX_LINKS)
         return self
 
     def init_ajax_select(self) -> Self:
         """Initialize ajax select."""
-        self.__add_command(self.INIT_AJAX_SELECT)
+        self._add_command(self.INIT_AJAX_SELECT)
         return self
 
     def init_ajax_forms(self) -> Self:
         """Initialize ajax forms."""
-        self.__add_command(self.INIT_AJAX_FORMS)
+        self._add_command(self.INIT_AJAX_FORMS)
         return self
 
     def load_script(self, name: str, callback: str) -> Self:
         """Allows load javascript script from file."""
-        self.__add_command(self.LOAD_SCRIPT, {"script": name, "callback": callback})
+        self._add_command(self.LOAD_SCRIPT, {"script": name, "callback": callback})
         return self
 
     def set_input_value(self, element: str, value: str) -> Self:
-        self.__add_command(self.SET_INPUT_VALUE, {"id": element}, value)
+        self._add_command(self.SET_INPUT_VALUE, {"id": element}, value)
         return self
 
     def modal(self, element: str, action: str) -> Self:
-        self.__add_command(self.MODAL, {"id": element}, action)
+        self._add_command(self.MODAL, {"id": element}, action)
         return self
 
     def set_url(self, element: str, url: str) -> Self:
-        self.__add_command(self.URL, {"id": element}, url)
+        self._add_command(self.URL, {"id": element}, url)
         return self
 
     def set_form_action(self, element: str, action: str) -> Self:
-        self.__add_command(self.SET_FORM_ACTION, {"id": element}, action)
+        self._add_command(self.SET_FORM_ACTION, {"id": element}, action)
         return self
 
-    def __add_command(self, command: str, attributes: Dict = None, m_data=None) -> Self:
+    def _add_command(self, command: str, attributes: Dict = None, m_data=None) -> Self:
         """Adds command."""
         if attributes is None:
             attributes = {}
