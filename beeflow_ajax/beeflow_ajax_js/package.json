@@ -1,0 +1,19 @@
+{
+  "name": "@beeflow/beeflow_ajax_js",
+  "version": "1.0.0",
+  "description": "Library to maintain ajax and websockets communication without writing complicated code in JS",
+  "main": "BeeflowAjax.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beeflow/BeeflowAjaxPy.git"
+  },
+  "author": "Rafal Przetakowski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/beeflow/BeeflowAjaxPy/issues"
+  },
+  "homepage": "https://github.com/beeflow/BeeflowAjaxPy#readme"
+}

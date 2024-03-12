@@ -5,11 +5,13 @@ The library to maintain ajax and websockets communication without writing compli
 ## Installation
 
 ```shell
-$ pip install beeflow-ajax
+$ npm i @beeflow/beeflow_ajax_js
 ```
 
+To use server side Python package install
+
 ```shell
-$ npm i @beeflow/beeflow_ajax_js
+$ pip install beeflow-ajax
 ```
 
 In the css and js folders you can find files, that you need to add to your HTML file.
