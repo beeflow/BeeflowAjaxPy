@@ -67,6 +67,7 @@ BeeflowAjax.send("https://some.web.example/api/v1/record/", {"some": "data"}, su
 ### WebSocket
 
 #### Initialisation
+
 ```javascript
 BeeflowAjax.websocket.init("ws://some.web.example/api/v1/ws/<any:connectionId>", {some: "data"}, () => {
     consolr.log('Callback function')
@@ -87,11 +88,14 @@ BeeflowAjax.websocket.init("ws://some.web.example/api/v1/ws/<any:connectionId>",
 ### Ajax
 
 ##### Django
+
 ```python
 from django.http import HttpResponse  # or any response class
 from rest_framework.views import APIView
 from beeflow_ajax.lib import AjaxResponse
+
 ...
+
 
 class SomeView(APIView):
     ajax = AjaxResponse(HttpResponse)
@@ -101,6 +105,7 @@ class SomeView(APIView):
 ```
 
 ##### FastAPI
+
 ```python
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
@@ -108,6 +113,7 @@ from starlette import status
 from beeflow_ajax.lib import AjaxResponse
 
 router = APIRouter()
+
 
 @router.get("/some-view-id", status_code=status.HTTP_200_OK)
 async def new_game(db: Session = Depends(get_db)):
@@ -120,19 +126,30 @@ async def new_game(db: Session = Depends(get_db)):
 ## Development
 
 First install `pre-commit`
+
 ```shell
 $ pip install pre-commit
 $ pre-commit install
 ```
 
+### Publishing Python
+
+```shell
+$ python -m build
+$ twine upload dist/*
+```
+
 ### Publishing JS
+
+In the `beeflow_ajax/beeflow_ajax_js` directory, run commands
+
 ```shell
 $ npm version patch
 $ npm publish
 ```
 
-### Publishing Python
-```shell
-$ python -m build
-$ twine upload dist/*
-```
+Then use these urls in the browser:
+* https://cdn.jsdelivr.net/npm/@beeflow/beeflow_ajax_js@<correct_version>/css/BeeflowAjax.css
+* https://cdn.jsdelivr.net/npm/@beeflow/beeflow_ajax_js@<correct_version>/js/js-url-2.3.0.min.js
+* https://cdn.jsdelivr.net/npm/@beeflow/beeflow_ajax_js<correct_version>/js/BeeflowAjax.js
+* https://cdn.jsdelivr.net/npm/@beeflow/beeflow_ajax_js@<correct_version>/js/BeeflowAjaxSwalMessages.js

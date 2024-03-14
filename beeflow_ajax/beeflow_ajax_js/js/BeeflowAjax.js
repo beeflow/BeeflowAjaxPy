@@ -377,11 +377,8 @@ BeeflowAjax.initAjaxForms = function () {
 
 BeeflowAjax.linkClickedAction = function (element, e) {
     var action = $(element).attr('href');
-    if (action === '#' || typeof action === 'undefined') {
-        action = $(element).data('action');
-    }
-
     var actionMethod = $(element).data('method');
+
     if (typeof actionMethod === 'undefined') {
         actionMethod = 'GET';
     }
