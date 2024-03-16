@@ -3,7 +3,7 @@
 @author Rafal Przetakowski <rafal.p@beeflow.co.uk>"""
 
 import json
-from typing import Dict, List, Self
+from typing import Any, Dict, List, Self
 
 
 class AjaxResponse:
@@ -34,6 +34,7 @@ class AjaxResponse:
     MODAL = "modal"
     URL = "setUrl"
     SET_FORM_ACTION = "setFormAction"
+    SET_ATTRIBUTE = "setAttribute"
 
     def __init__(self, response=None):
         """Constructor prepares commands list."""
@@ -210,6 +211,13 @@ class AjaxResponse:
 
     def set_form_action(self, element: str, action: str) -> Self:
         self._add_command(self.SET_FORM_ACTION, {"id": element}, action)
+        return self
+
+    def set_attribute(self, element: str, attribute_name: str, value: Any) -> Self:
+        self._add_command(
+            self.SET_ATTRIBUTE,
+            {"id": element, "attribute": attribute_name, "value": value},
+        )
         return self
 
     def _add_command(self, command: str, attributes: Dict = None, m_data=None) -> Self:

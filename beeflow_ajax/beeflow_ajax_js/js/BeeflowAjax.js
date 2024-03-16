@@ -253,6 +253,9 @@ BeeflowAjax.ajaxResponseCommands = function (msg) {
                 $(msg[index]['id']).val("");
                 $(msg[index]['id']).val(msg[index]['data']);
                 break;
+            case "setAttribute":
+                document.querySelector(msg[index]['id']).setAttribute(msg[index]['attribute'], msg[index]['value']);
+                break;
         }
     }
 };
