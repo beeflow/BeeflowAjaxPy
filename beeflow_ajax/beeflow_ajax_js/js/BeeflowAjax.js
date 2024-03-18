@@ -49,7 +49,7 @@ BeeflowMessageComponent.success = function (msg, title, callback) {
         });
     }
 
-    if (callback && typeof (callback) === "function") {
+    if (callback) {
         showAlert(title + "\n\n" + msg).then(() => {
             callback()
         })
@@ -66,9 +66,9 @@ BeeflowMessageComponent.error = function (msg, title, callback) {
         });
     }
 
-    if (callback && typeof (callback) === "function") {
+    if (callback) {
         showAlert(title + "\n\n" + msg).then(() => {
-            callback()
+            eval(callback)
         })
     } else {
         showAlert(title + "\n\n" + msg)
@@ -92,9 +92,9 @@ BeeflowMessageComponent.warning = function (msg, title, callback) {
         });
     }
 
-    if (callback && typeof (callback) === "function") {
+    if (callback) {
         showAlert(title + "\n\n" + msg).then(() => {
-            callback()
+            eval(callback)
         })
     } else {
         showAlert(title + "\n\n" + msg)
@@ -109,9 +109,9 @@ BeeflowMessageComponent.info = function (msg, title, callback) {
         });
     }
 
-    if (callback && typeof (callback) === "function") {
+    if (callback) {
         showAlert(title + "\n\n" + msg).then(() => {
-            callback()
+            eval(callback)
         })
     } else {
         showAlert(title + "\n\n" + msg)

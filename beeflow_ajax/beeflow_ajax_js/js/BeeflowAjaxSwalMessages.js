@@ -3,8 +3,9 @@ BeeflowAjax.remove = function (elementId) {
 };
 
 BeeflowMessageComponent.success = function (msg, title, callback) {
-    if (callback && typeof (callback) === "function") {
-        swal(title, msg, "success").then(() => {callback()});
+    if (callback) {
+        console.log(callback)
+        swal(title, msg, "success").then(() => {eval(callback)});
     } else {
         swal(title, msg, "success");
     }
@@ -56,7 +57,7 @@ BeeflowMessageComponent.internalServerError = function () {
 
 BeeflowMessageComponent.error = function (msg, title, callback) {
     if (callback && typeof (callback) === "function") {
-        swal(title, msg, "error").then(() => {callback()});
+        swal(title, msg, "error").then(() => {eval(callback)});
     } else {
         swal(title, msg, "error");
     }
@@ -64,7 +65,7 @@ BeeflowMessageComponent.error = function (msg, title, callback) {
 
 BeeflowMessageComponent.warning = function (msg, title, callback) {
     if (callback && typeof (callback) === "function") {
-        swal(title, msg, "warning").then(() => {callback()});
+        swal(title, msg, "warning").then(() => {eval(callback)});
     } else {
         swal(title, msg, "warning");
     }
@@ -72,7 +73,7 @@ BeeflowMessageComponent.warning = function (msg, title, callback) {
 
 BeeflowMessageComponent.info = function (msg, title, callback) {
     if (callback && typeof (callback) === "function") {
-        swal(title, msg, "info").then(() => {callback()});
+        swal(title, msg, "info").then(() => {eval(callback)});
     } else {
         swal(title, msg, "info");
     }
