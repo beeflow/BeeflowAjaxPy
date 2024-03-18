@@ -3,7 +3,7 @@
 @author Rafal Przetakowski <rafal.p@beeflow.co.uk>"""
 
 import json
-from typing import Any, Dict, List, Self
+from typing import Any, Dict, List, Optional, Self
 
 
 class AjaxResponse:
@@ -77,24 +77,40 @@ class AjaxResponse:
         self._add_command(self.ALERT, {}, str(msg))
         return self
 
-    def alert_success(self, msg: str, title: str = "") -> Self:
+    def alert_success(
+        self, msg: str, title: str = "", callback: Optional[str] = None
+    ) -> Self:
         """Prepares success message command."""
-        self._add_command(self.ALERT_SUCCESS, {"title": title}, str(msg))
+        self._add_command(
+            self.ALERT_SUCCESS, {"title": title, "callback": callback}, str(msg)
+        )
         return self
 
-    def alert_error(self, msg: str, title: str = "") -> Self:
+    def alert_error(
+        self, msg: str, title: str = "", callback: Optional[str] = None
+    ) -> Self:
         """Prepares error message command."""
-        self._add_command(self.ALERT_ERROR, {"title": title}, str(msg))
+        self._add_command(
+            self.ALERT_ERROR, {"title": title, "callback": callback}, str(msg)
+        )
         return self
 
-    def alert_warning(self, msg: str, title: str = "") -> Self:
+    def alert_warning(
+        self, msg: str, title: str = "", callback: Optional[str] = None
+    ) -> Self:
         """Prepares warning message command."""
-        self._add_command(self.ALERT_WARNING, {"title": title}, str(msg))
+        self._add_command(
+            self.ALERT_WARNING, {"title": title, "callback": callback}, str(msg)
+        )
         return self
 
-    def alert_info(self, msg: str, title: str = "") -> Self:
+    def alert_info(
+        self, msg: str, title: str = "", callback: Optional[str] = None
+    ) -> Self:
         """Prepares info message command."""
-        self._add_command(self.ALERT_INFO, {"title": title}, str(msg))
+        self._add_command(
+            self.ALERT_INFO, {"title": title, "callback": callback}, str(msg)
+        )
         return self
 
     def debug(self, data) -> Self:

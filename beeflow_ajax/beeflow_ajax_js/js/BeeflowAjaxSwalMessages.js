@@ -2,8 +2,12 @@ BeeflowAjax.remove = function (elementId) {
     $(elementId).fadeOut().remove();
 };
 
-BeeflowMessageComponent.success = function (msg, title) {
-    swal(title, msg, "success");
+BeeflowMessageComponent.success = function (msg, title, callback) {
+    if (callback && typeof (callback) === "function") {
+        swal(title, msg, "success").then(() => {callback()});
+    } else {
+        swal(title, msg, "success");
+    }
 };
 
 BeeflowMessageComponent.datatable_confirm = function (element, event, title = "", text = "", _callback) {
@@ -50,16 +54,28 @@ BeeflowMessageComponent.internalServerError = function () {
     );
 };
 
-BeeflowMessageComponent.error = function (msg, title) {
-    swal(title, msg, "error");
+BeeflowMessageComponent.error = function (msg, title, callback) {
+    if (callback && typeof (callback) === "function") {
+        swal(title, msg, "error").then(() => {callback()});
+    } else {
+        swal(title, msg, "error");
+    }
 };
 
-BeeflowMessageComponent.warning = function (msg, title) {
-    swal(title, msg, "warning");
+BeeflowMessageComponent.warning = function (msg, title, callback) {
+    if (callback && typeof (callback) === "function") {
+        swal(title, msg, "warning").then(() => {callback()});
+    } else {
+        swal(title, msg, "warning");
+    }
 };
 
-BeeflowMessageComponent.info = function (msg, title) {
-    swal(title, msg, "info");
+BeeflowMessageComponent.info = function (msg, title, callback) {
+    if (callback && typeof (callback) === "function") {
+        swal(title, msg, "info").then(() => {callback()});
+    } else {
+        swal(title, msg, "info");
+    }
 };
 
 BeeflowAjax.remove = function (elementId) {

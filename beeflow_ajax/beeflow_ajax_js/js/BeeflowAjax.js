@@ -41,12 +41,38 @@ BeeflowMessages = {
     'This file is too large': 'This file is too large!'
 };
 
-BeeflowMessageComponent.success = function (msg, title) {
-    alert(title + "\n\n" + msg);
+BeeflowMessageComponent.success = function (msg, title, callback) {
+    const showAlert = (message) => {
+        return new Promise(function (resolve) {
+            alert(message);
+            resolve();
+        });
+    }
+
+    if (callback && typeof (callback) === "function") {
+        showAlert(title + "\n\n" + msg).then(() => {
+            callback()
+        })
+    } else {
+        showAlert(title + "\n\n" + msg)
+    }
 };
 
-BeeflowMessageComponent.error = function (msg, title) {
-    alert(title + "\n\n" + msg);
+BeeflowMessageComponent.error = function (msg, title, callback) {
+    const showAlert = (message) => {
+        return new Promise(function (resolve) {
+            alert(message);
+            resolve();
+        });
+    }
+
+    if (callback && typeof (callback) === "function") {
+        showAlert(title + "\n\n" + msg).then(() => {
+            callback()
+        })
+    } else {
+        showAlert(title + "\n\n" + msg)
+    }
 };
 
 BeeflowMessageComponent.internalServerError = function () {
@@ -58,12 +84,38 @@ BeeflowMessageComponent.internalServerError = function () {
     alert($alertElements.join("\n\n"));
 };
 
-BeeflowMessageComponent.warning = function (msg, title) {
-    alert(title + "\n\n" + msg);
+BeeflowMessageComponent.warning = function (msg, title, callback) {
+    const showAlert = (message) => {
+        return new Promise(function (resolve) {
+            alert(message);
+            resolve();
+        });
+    }
+
+    if (callback && typeof (callback) === "function") {
+        showAlert(title + "\n\n" + msg).then(() => {
+            callback()
+        })
+    } else {
+        showAlert(title + "\n\n" + msg)
+    }
 };
 
-BeeflowMessageComponent.info = function (msg, title) {
-    alert(title + "\n\n" + msg);
+BeeflowMessageComponent.info = function (msg, title, callback) {
+    const showAlert = (message) => {
+        return new Promise(function (resolve) {
+            alert(message);
+            resolve();
+        });
+    }
+
+    if (callback && typeof (callback) === "function") {
+        showAlert(title + "\n\n" + msg).then(() => {
+            callback()
+        })
+    } else {
+        showAlert(title + "\n\n" + msg)
+    }
 };
 
 BeeflowMessageComponent.confirm = function (element, event) {
@@ -178,16 +230,16 @@ BeeflowAjax.ajaxResponseCommands = function (msg) {
                 alert(msg[index]['data']);
                 break;
             case "alertSuccess" :
-                BeeflowMessageComponent.success(msg[index]['data'], msg[index]['title']);
+                BeeflowMessageComponent.success(msg[index]['data'], msg[index]['title'], msg[index]['callback']);
                 break;
             case "alertError" :
-                BeeflowMessageComponent.error(msg[index]['data'], msg[index]['title']);
+                BeeflowMessageComponent.error(msg[index]['data'], msg[index]['title'], msg[index]['callback']);
                 break;
             case "alertWarning" :
-                BeeflowMessageComponent.warning(msg[index]['data'], msg[index]['title']);
+                BeeflowMessageComponent.warning(msg[index]['data'], msg[index]['title'], msg[index]['callback']);
                 break;
             case "alertInfo" :
-                BeeflowMessageComponent.info(msg[index]['data'], msg[index]['title']);
+                BeeflowMessageComponent.info(msg[index]['data'], msg[index]['title'], msg[index]['callback']);
                 break;
             case "debug" :
                 console.log(msg[index]['data']);
