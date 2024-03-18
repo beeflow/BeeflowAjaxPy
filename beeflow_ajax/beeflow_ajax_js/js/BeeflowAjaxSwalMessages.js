@@ -56,7 +56,7 @@ BeeflowMessageComponent.internalServerError = function () {
 };
 
 BeeflowMessageComponent.error = function (msg, title, callback) {
-    if (callback && typeof (callback) === "function") {
+    if (callback) {
         swal(title, msg, "error").then(() => {eval(callback)});
     } else {
         swal(title, msg, "error");
@@ -64,7 +64,7 @@ BeeflowMessageComponent.error = function (msg, title, callback) {
 };
 
 BeeflowMessageComponent.warning = function (msg, title, callback) {
-    if (callback && typeof (callback) === "function") {
+    if (callback) {
         swal(title, msg, "warning").then(() => {eval(callback)});
     } else {
         swal(title, msg, "warning");
@@ -72,7 +72,7 @@ BeeflowMessageComponent.warning = function (msg, title, callback) {
 };
 
 BeeflowMessageComponent.info = function (msg, title, callback) {
-    if (callback && typeof (callback) === "function") {
+    if (callback) {
         swal(title, msg, "info").then(() => {eval(callback)});
     } else {
         swal(title, msg, "info");
