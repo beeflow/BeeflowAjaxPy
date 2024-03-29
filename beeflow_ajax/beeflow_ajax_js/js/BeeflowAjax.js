@@ -250,6 +250,30 @@ BeeflowAjax.ajaxResponseCommands = function (msg) {
             case "append" :
                 $(msg[index]['id']).append(msg[index]['data']);
                 break;
+            case "appendElement":
+                document.querySelector(msg[index]['id']).appendChild(
+                    BeeflowAjax.build.element(msg[index]['element'])
+                );
+                break;
+            case "assignElement":
+                let elementContainer = document.querySelector(msg[index]['id']);
+                elementContainer.innerHTML = "";
+                elementContainer.appendChild(
+                    BeeflowAjax.build.element(msg[index]['element'])
+                );
+                break;
+            case "appendList":
+                document.querySelector(msg[index]['id']).appendChild(
+                    BeeflowAjax.build.list(msg[index]['list_type'], msg[index]['element'])
+                );
+                break;
+            case "assignList":
+                let listContainer = document.querySelector(msg[index]['id']);
+                listContainer.innerHTML = "";
+                listContainer.appendChild(
+                    BeeflowAjax.build.list(msg[index]['list_type'], msg[index]['element'])
+                );
+                break;
             case "assign" :
                 $(msg[index]['id']).html(msg[index]['data']);
                 break;
@@ -525,6 +549,97 @@ function removeFromAjaxSelect(element) {
         }
     }
 }
+
+BeeflowAjax.build = {
+    element: (elementToBuild) => {
+        const newElement = document.createElement(elementToBuild.elementName)
+        const ignoredAttributes = ["elementType", "elementName"]
+
+        for (let elementAttribute in elementToBuild) {
+            if (!elementToBuild.hasOwnProperty(elementAttribute)) {
+                continue
+            }
+
+            if (ignoredAttributes.includes(elementAttribute)) {
+                continue
+            }
+
+            console.log(elementToBuild)
+            if (elementAttribute === "innerText") {
+                newElement.textContent = elementToBuild.innerText
+                continue
+            }
+
+            if (elementAttribute === "innerElement") {
+                console.log(elementToBuild.innerElement.elementType)
+                newElement.appendChild(BeeflowAjax.build[elementToBuild.innerElement.elementType](
+                    elementToBuild.innerElement
+                ))
+                continue
+            }
+
+            if (elementAttribute === "innerHTML") {
+                newElement.innerHTML = elementToBuild.innerHTML
+                continue
+            }
+
+            if (elementAttribute === "callback") {
+                /** todo Implement callback function */
+                continue
+            }
+
+            newElement.setAttribute(elementAttribute, elementToBuild[elementAttribute])
+        }
+
+        return newElement
+    },
+
+    list: (listType, listElements, callback) => {
+        const listElement = document.createElement(listType)
+        const possibleElements = ["element"]
+
+        listElements.forEach((obj) => {
+            if (obj.elementType === "element") {
+                var newElement = BeeflowAjax.build["element"](obj)
+            }
+
+            if (possibleElements.includes(obj.elementType)) {
+                listElement.appendChild(newElement)
+            }
+        })
+
+        return listElement
+    }
+}
+
+
+const elementsArray3 = [
+    {
+        "elementType": "element",
+        "elementName": "li",
+        "class": "label label-warning",
+        "innerElement": {
+            "elementType": "element",
+            "elementName": "a",
+            "href": "https://google.pl",
+            "title": "Google",
+            "innerText": "Google"
+
+        }
+    },
+    {
+        "elementType": "element",
+        "elementName": "li",
+        "class": "label label-warning",
+        "innerElement": {
+            "elementType": "element", "elementName": "a",
+            "href": "https://example.com",
+            "title": "Example",
+            "innerText": "Example"
+
+        }
+    }
+]
 
 $(document).ready(function () {
     BeeflowAjax.initAjaxForms();

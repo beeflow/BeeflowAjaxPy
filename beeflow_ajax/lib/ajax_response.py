@@ -17,6 +17,10 @@ class AjaxResponse:
     DEBUG = "debug"
     APPEND = "append"
     ASSIGN = "assign"
+    APPEND_ELEMENT = "appendElement"
+    ASSIGN_ELEMENT = "assignElement"
+    APPEND_LIST = "appendList"
+    ASSIGN_LIST = "assignList"
     REDIRECT = "redirect"
     RELOAD_LOCATION = "reloadLocation"
     REMOVE = "remove"
@@ -57,7 +61,7 @@ class AjaxResponse:
         if not self.response_:
             return commands
 
-        return self.response_(json.dumps(commands), *args, **kwargs)
+        return self.response_(commands, *args, **kwargs)
 
     def get_json(self) -> str:
         """Returns json string."""
@@ -116,6 +120,32 @@ class AjaxResponse:
     def debug(self, data) -> Self:
         """Prepares debug command."""
         self._add_command(self.DEBUG, {}, data)
+        return self
+
+    def append_element(self, element: str, element_data: dict[str:Any]) -> Self:
+        self._add_command(self.APPEND_ELEMENT, {"id": element, "element": element_data})
+        return self
+
+    def assign_element(self, element: str, element_data: dict[str:Any]) -> Self:
+        self._add_command(self.ASSIGN_ELEMENT, {"id": element, "element": element_data})
+        return self
+
+    def append_list(
+        self, element: str, element_data: list[dict[str:Any]], list_type: str
+    ) -> Self:
+        self._add_command(
+            self.APPEND_LIST,
+            {"id": element, "element": element_data, "list_type": list_type},
+        )
+        return self
+
+    def assign_list(
+        self, element: str, element_data: list[dict[str:Any]], list_type: str
+    ) -> Self:
+        self._add_command(
+            self.ASSIGN_LIST,
+            {"id": element, "element": element_data, "list_type": list_type},
+        )
         return self
 
     def append(self, element: str, value: str) -> Self:
