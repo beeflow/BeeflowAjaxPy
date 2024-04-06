@@ -144,7 +144,7 @@ BeeflowAjax.websocket = {
     }
 }
 
-BeeflowAjax.send = function (action, params, clicked_button, callback, callMethod) {
+BeeflowAjax.send = function (url, params, clicked_button, callback, callMethod) {
     $(clicked_button).addClass('disabled');
     var icon = $(clicked_button).children()[0];
     if (typeof icon !== 'undefined') {
@@ -159,7 +159,7 @@ BeeflowAjax.send = function (action, params, clicked_button, callback, callMetho
 
     $.ajax({
         method: callMethod,
-        url: action,
+        url: url,
         data: {'data': params},
         beforeSend: function (xhr) {
             xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
@@ -575,6 +575,14 @@ BeeflowAjax.build = {
                 newElement.appendChild(BeeflowAjax.build[elementToBuild.innerElement.elementType](
                     elementToBuild.innerElement
                 ))
+                continue
+            }
+
+            if (elementAttribute === "innerElements") {
+                console.log(elementToBuild.innerElements)
+                elementToBuild.innerElements.forEach((element) => {
+                    newElement.appendChild(BeeflowAjax.build[element.elementType](element))
+                })
                 continue
             }
 

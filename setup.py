@@ -10,7 +10,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setuptools.setup(
     name="beeflow-ajax",
-    version="1.0.8",
+    version="1.0.9",
     author="Rafal Przetakowski",
     author_email="office@beeflow.co.uk",
     description="Library to maintain ajax and websockets communication without writing complicated code in JS",
