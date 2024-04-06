@@ -570,6 +570,11 @@ BeeflowAjax.build = {
                 continue
             }
 
+            if (elementAttribute === "appendText") {
+                newElement.innerHTML += elementToBuild.appendText
+                continue
+            }
+
             if (elementAttribute === "innerElement") {
                 console.log(elementToBuild.innerElement.elementType)
                 newElement.appendChild(BeeflowAjax.build[elementToBuild.innerElement.elementType](

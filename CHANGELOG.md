@@ -12,7 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Add option to include list of elements inside the element ([134112f](https://github.com/beeflow/BeeflowAjaxPy/commit/134112fe1dc1d0fdf56562e1e7c2fe984bcdad98) by Rafal Przetakowski).
+- Added append text to the element ([2bcde8b](https://github.com/beeflow/BeeflowAjaxPy/commit/2bcde8bed1a109d21595cdf08b10bf088fb7f289) by Rafal Przetakowski).
+- Add option to include list of elements inside the element ([578259a](https://github.com/beeflow/BeeflowAjaxPy/commit/578259a8f77c8880d005babd545521e71ffc8373) by Rafal Przetakowski).
 - Add creating elements based on dictionary + align python and javascript versions ([b75afc1](https://github.com/beeflow/BeeflowAjaxPy/commit/b75afc181c26b9c95d93bfbc33604c68b02c799a) by Rafal Przetakowski).
 - Add callback to alerts ([1ff471e](https://github.com/beeflow/BeeflowAjaxPy/commit/1ff471e3b599be2ea0f9a19e694e92898c2fd595) by Rafal Przetakowski).
 - Added setAttribute option ([7c5a67f](https://github.com/beeflow/BeeflowAjaxPy/commit/7c5a67fc4b7e33c7c9ce5c1740bda6a557aa620f) by Rafal Przetakowski).
