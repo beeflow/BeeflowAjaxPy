@@ -256,7 +256,8 @@ BeeflowAjax.ajaxResponseCommands = function (msg) {
                 );
                 break;
             case "appendElements":
-                msg[index]['elements'].each((element) => {
+                console.log(msg[index]['elements'])
+                msg[index]['elements'].forEach((element) => {
                     document.querySelector(msg[index]['id']).appendChild(
                         BeeflowAjax.build.element(element)
                     );
@@ -272,7 +273,7 @@ BeeflowAjax.ajaxResponseCommands = function (msg) {
             case "assignElements":
                 let elementsContainer = document.querySelector(msg[index]['id']);
                 elementsContainer.innerHTML = "";
-                msg[index]['element'].forEach((element) => {
+                msg[index]['elements'].forEach((element) => {
                     elementsContainer.appendChild(
                         BeeflowAjax.build.element(element)
                     );
@@ -432,7 +433,6 @@ BeeflowAjax.initWebSocketForm = () => {
             }
 
             let formData = JSON.parse(BeeflowAjax.getFormValues(this));
-            console.log(formData)
             BeeflowAjax.websocket.send(formData)
             e.preventDefault()
         })
@@ -580,7 +580,6 @@ BeeflowAjax.build = {
                 continue
             }
 
-            console.log(elementToBuild)
             if (elementAttribute === "innerText") {
                 newElement.textContent = elementToBuild.innerText
                 continue
@@ -592,7 +591,6 @@ BeeflowAjax.build = {
             }
 
             if (elementAttribute === "innerElement") {
-                console.log(elementToBuild.innerElement.elementType)
                 newElement.appendChild(BeeflowAjax.build[elementToBuild.innerElement.elementType](
                     elementToBuild.innerElement
                 ))
@@ -600,7 +598,6 @@ BeeflowAjax.build = {
             }
 
             if (elementAttribute === "innerElements") {
-                console.log(elementToBuild.innerElements)
                 elementToBuild.innerElements.forEach((element) => {
                     newElement.appendChild(BeeflowAjax.build[element.elementType](element))
                 })
