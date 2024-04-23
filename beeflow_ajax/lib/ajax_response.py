@@ -5,6 +5,8 @@
 import json
 from typing import Any, Dict, List, Optional, Self
 
+from beeflow_ajax.lib.html_models.base_html_model import BaseHTMLModel
+
 
 class AjaxResponse:
     """Response object for AJAX."""
@@ -18,7 +20,9 @@ class AjaxResponse:
     APPEND = "append"
     ASSIGN = "assign"
     APPEND_ELEMENT = "appendElement"
+    APPEND_ELEMENTS = "appendElements"
     ASSIGN_ELEMENT = "assignElement"
+    ASSIGN_ELEMENTS = "assignElements"
     APPEND_LIST = "appendList"
     ASSIGN_LIST = "assignList"
     REDIRECT = "redirect"
@@ -122,12 +126,32 @@ class AjaxResponse:
         self._add_command(self.DEBUG, {}, data)
         return self
 
-    def append_element(self, element: str, element_data: dict[str:Any]) -> Self:
+    def append_element(self, element: str, element_data: dict[str:Any] | BaseHTMLModel) -> Self:
+        if isinstance(element_data, BaseHTMLModel):
+            element_data = element_data.model_dump()
+
         self._add_command(self.APPEND_ELEMENT, {"id": element, "element": element_data})
         return self
 
-    def assign_element(self, element: str, element_data: dict[str:Any]) -> Self:
+    def append_elements(self, element: str, element_data: list[dict[str:Any] | BaseHTMLModel]) -> Self:
+        if isinstance(element_data[0], BaseHTMLModel):
+            element_data = [edata.model_dump() for edata in element_data]
+
+        self._add_command(self.APPEND_ELEMENTS, {"id": element, "elements": element_data})
+        return self
+
+    def assign_element(self, element: str, element_data: dict[str:Any] | BaseHTMLModel) -> Self:
+        if isinstance(element_data, BaseHTMLModel):
+            element_data = element_data.model_dump()
+
         self._add_command(self.ASSIGN_ELEMENT, {"id": element, "element": element_data})
+        return self
+
+    def assign_elements(self, element: str, element_data: list[dict[str:Any] | BaseHTMLModel]) -> Self:
+        if isinstance(element_data[0], BaseHTMLModel):
+            element_data = [edata.model_dump() for edata in element_data]
+
+        self._add_command(self.ASSIGN_ELEMENTS, {"id": element, "elements": element_data})
         return self
 
     def append_list(

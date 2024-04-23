@@ -255,12 +255,28 @@ BeeflowAjax.ajaxResponseCommands = function (msg) {
                     BeeflowAjax.build.element(msg[index]['element'])
                 );
                 break;
+            case "appendElements":
+                msg[index]['elements'].each((element) => {
+                    document.querySelector(msg[index]['id']).appendChild(
+                        BeeflowAjax.build.element(element)
+                    );
+                });
+                break;
             case "assignElement":
                 let elementContainer = document.querySelector(msg[index]['id']);
                 elementContainer.innerHTML = "";
                 elementContainer.appendChild(
                     BeeflowAjax.build.element(msg[index]['element'])
                 );
+                break;
+            case "assignElements":
+                let elementsContainer = document.querySelector(msg[index]['id']);
+                elementsContainer.innerHTML = "";
+                msg[index]['element'].forEach((element) => {
+                    elementsContainer.appendChild(
+                        BeeflowAjax.build.element(element)
+                    );
+                });
                 break;
             case "appendList":
                 document.querySelector(msg[index]['id']).appendChild(
