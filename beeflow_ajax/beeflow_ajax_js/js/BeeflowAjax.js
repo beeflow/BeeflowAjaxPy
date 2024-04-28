@@ -25,6 +25,37 @@ const jsonParser = (blob) => {
     return parsed;
 }
 
+const rowUp = (element_id) => {
+    let row = document.querySelector(element_id)
+    let sibling = row.previousElementSibling;
+
+    if (sibling) {
+        row.classList.add("move-up");
+        sibling.classList.add("move-down")
+
+        setTimeout(() => {
+            row.parentNode.insertBefore(row, sibling);
+            row.classList.remove("move-up");
+            sibling.classList.remove("move-down");
+        }, 200)
+    }
+}
+
+const rowDown = (element_id) => {
+    let row = document.querySelector(element_id)
+    let sibling = row.nextElementSibling;
+
+    if (sibling) {
+        row.classList.add("move-down");
+        sibling.classList.add("move-up")
+        setTimeout(() => {
+            row.parentNode.insertBefore(sibling, row);
+            row.classList.remove("move-down");
+            sibling.classList.remove("move-up");
+        }, 200)
+    }
+}
+
 var BeeflowAjax = BeeflowAjax || {};
 var pingFunctions = [];
 
@@ -246,6 +277,12 @@ BeeflowAjax.ajaxResponseCommands = function (msg) {
                 break;
             case "remove" :
                 BeeflowAjax.remove(msg[index]['id']);
+                break;
+            case "rowUp" :
+                rowUp(msg[index]['id']);
+                break;
+            case "rowDown" :
+                rowDown(msg[index]['id']);
                 break;
             case "append" :
                 $(msg[index]['id']).append(msg[index]['data']);
@@ -500,13 +537,12 @@ BeeflowAjax.initAjaxLinks = function () {
     });
 };
 
-var AjaxSelect = [];
 BeeflowAjax.initAjaxSelect = function (elementId) {
     $("select").each(function () {
-        if (typeof $(this).data('ajax-datasource') !== 'undefined' && (!inArray($(this).attr('id'), AjaxSelect) || elementId == $(this).attr('id'))) {
+        if (typeof $(this).data('ajax-datasource') !== 'undefined' && elementId == $(this).attr('id')) {
             $(this).unbind('change');
             $(this).find('option').remove();
-            AjaxSelect.push($(this).attr('id'));
+
             var $element = $(this);
             var $request = $.ajax({
                 url: $(this).data('ajax-datasource')

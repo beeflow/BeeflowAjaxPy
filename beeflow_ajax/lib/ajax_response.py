@@ -43,6 +43,8 @@ class AjaxResponse:
     URL = "setUrl"
     SET_FORM_ACTION = "setFormAction"
     SET_ATTRIBUTE = "setAttribute"
+    ROW_UP = "rowUp"
+    ROW_DOWN = "rowDown"
 
     def __init__(self, response=None):
         """Constructor prepares commands list."""
@@ -288,6 +290,16 @@ class AjaxResponse:
             self.SET_ATTRIBUTE,
             {"id": element, "attribute": attribute_name, "value": value},
         )
+        return self
+
+    def row_up(self, element: str) -> Self:
+        """Move table row (or other element) up."""
+        self._add_command(self.ROW_UP, {"id": element})
+        return self
+
+    def row_down(self, element: str) -> Self:
+        """Move table row (or other element) down."""
+        self._add_command(self.ROW_DOWN, {"id": element})
         return self
 
     def _add_command(self, command: str, attributes: Dict = None, m_data=None) -> Self:

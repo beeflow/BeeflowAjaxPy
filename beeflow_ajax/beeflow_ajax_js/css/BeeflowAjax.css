@@ -1,4 +1,38 @@
-.ajax-link{}
-.ajax-form{}
-.ajax-select{}
-.websocket-form{}
+.ajax-link {
+}
+
+.ajax-form {
+}
+
+.ajax-select {
+}
+
+.websocket-form {
+}
+
+
+@keyframes animating-up {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes animating-down {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100%);
+    }
+}
+
+.move-down {
+    animation: 0.2s linear 0s alternate animating-down;
+}
+
+.move-up {
+    animation: 0.2s linear 0s alternate animating-up;
+}
