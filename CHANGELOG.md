@@ -12,7 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Added append text to the element ([2bcde8b](https://github.com/beeflow/BeeflowAjaxPy/commit/2bcde8bed1a109d21595cdf08b10bf088fb7f289) by Rafal Przetakowski).
+- Added option to move rows up and down with animation ([6eec88a](https://github.com/beeflow/BeeflowAjaxPy/commit/6eec88a46dab7756098100b200d97c0c554aa290) by Rafal Przetakowski).
+- Add option to assign and append elements plus html models to handle elements ([3c764a6](https://github.com/beeflow/BeeflowAjaxPy/commit/3c764a6f5d23b739cd0c8993c2f5b5cb1fd0596a) by Rafal Przetakowski).
+- Added append text to the element ([40d2e9a](https://github.com/beeflow/BeeflowAjaxPy/commit/40d2e9a6bb87e98cadbf0432d90d2d9f1b99de05) by Rafal Przetakowski).
 - Add option to include list of elements inside the element ([578259a](https://github.com/beeflow/BeeflowAjaxPy/commit/578259a8f77c8880d005babd545521e71ffc8373) by Rafal Przetakowski).
 - Add creating elements based on dictionary + align python and javascript versions ([b75afc1](https://github.com/beeflow/BeeflowAjaxPy/commit/b75afc181c26b9c95d93bfbc33604c68b02c799a) by Rafal Przetakowski).
 - Add callback to alerts ([1ff471e](https://github.com/beeflow/BeeflowAjaxPy/commit/1ff471e3b599be2ea0f9a19e694e92898c2fd595) by Rafal Przetakowski).
@@ -21,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
+- Fix JS, remove most of the console logs and align python version ([782e1e4](https://github.com/beeflow/BeeflowAjaxPy/commit/782e1e471d34211f2c4d9feff650095aaea37009) by Rafal Przetakowski).
 - Fix message functions ([4b00ac1](https://github.com/beeflow/BeeflowAjaxPy/commit/4b00ac1369349586b9b74fc1510a004b4868875f) by Rafal Przetakowski).
 
 ### Changed
