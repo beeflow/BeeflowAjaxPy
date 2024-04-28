@@ -88,7 +88,7 @@ class AjaxResponse:
         return self
 
     def alert_success(
-        self, msg: str, title: str = "", callback: Optional[str] = None
+            self, msg: str, title: str = "", callback: Optional[str] = None
     ) -> Self:
         """Prepares success message command."""
         self._add_command(
@@ -97,7 +97,7 @@ class AjaxResponse:
         return self
 
     def alert_error(
-        self, msg: str, title: str = "", callback: Optional[str] = None
+            self, msg: str, title: str = "", callback: Optional[str] = None
     ) -> Self:
         """Prepares error message command."""
         self._add_command(
@@ -106,7 +106,7 @@ class AjaxResponse:
         return self
 
     def alert_warning(
-        self, msg: str, title: str = "", callback: Optional[str] = None
+            self, msg: str, title: str = "", callback: Optional[str] = None
     ) -> Self:
         """Prepares warning message command."""
         self._add_command(
@@ -115,7 +115,7 @@ class AjaxResponse:
         return self
 
     def alert_info(
-        self, msg: str, title: str = "", callback: Optional[str] = None
+            self, msg: str, title: str = "", callback: Optional[str] = None
     ) -> Self:
         """Prepares info message command."""
         self._add_command(
@@ -157,7 +157,7 @@ class AjaxResponse:
         return self
 
     def append_list(
-        self, element: str, element_data: list[dict[str:Any]], list_type: str
+            self, element: str, element_data: list[dict[str:Any]], list_type: str
     ) -> Self:
         self._add_command(
             self.APPEND_LIST,
@@ -166,7 +166,7 @@ class AjaxResponse:
         return self
 
     def assign_list(
-        self, element: str, element_data: list[dict[str:Any]], list_type: str
+            self, element: str, element_data: list[dict[str:Any]], list_type: str
     ) -> Self:
         self._add_command(
             self.ASSIGN_LIST,
@@ -254,9 +254,16 @@ class AjaxResponse:
         self._add_command(self.INIT_AJAX_LINKS)
         return self
 
-    def init_ajax_select(self) -> Self:
+    def init_ajax_select(
+            self, callback: Optional[str] = None, callbackParams: Optional[dict] = None,
+            callbackCommands: Optional[list] = None
+    ) -> Self:
         """Initialize ajax select."""
-        self._add_command(self.INIT_AJAX_SELECT)
+
+        self._add_command(
+            self.INIT_AJAX_SELECT,
+            {"callback": callback, "callbackParams": callbackParams, "callbackCommands": callbackCommands}
+        )
         return self
 
     def init_ajax_forms(self) -> Self:

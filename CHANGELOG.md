@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+- Add callback and callbackCommands to the send and initAjaxSelect methods and function that allows calling functions only with specific parameters ([a14acd5](https://github.com/beeflow/BeeflowAjaxPy/commit/a14acd5a7ac140b7b30d463dab5e0d4a48202068) by Rafal Przetakowski).
 - Added option to move rows up and down with animation ([6eec88a](https://github.com/beeflow/BeeflowAjaxPy/commit/6eec88a46dab7756098100b200d97c0c554aa290) by Rafal Przetakowski).
 - Add option to assign and append elements plus html models to handle elements ([3c764a6](https://github.com/beeflow/BeeflowAjaxPy/commit/3c764a6f5d23b739cd0c8993c2f5b5cb1fd0596a) by Rafal Przetakowski).
 - Added append text to the element ([40d2e9a](https://github.com/beeflow/BeeflowAjaxPy/commit/40d2e9a6bb87e98cadbf0432d90d2d9f1b99de05) by Rafal Przetakowski).
@@ -23,7 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- Fix initAjaxSelect function ([bdf4017](https://github.com/beeflow/BeeflowAjaxPy/commit/bdf40174eb2948e9f92835c45c39473f2d09adb8) by Rafal Przetakowski).
+- Fix initAjaxSelect function ([c73acfa](https://github.com/beeflow/BeeflowAjaxPy/commit/c73acfa8061fa03fce8d0e7a40f63bf00ec19962) by Rafal Przetakowski).
 - Fix JS, remove most of the console logs and align python version ([782e1e4](https://github.com/beeflow/BeeflowAjaxPy/commit/782e1e471d34211f2c4d9feff650095aaea37009) by Rafal Przetakowski).
 - Fix message functions ([4b00ac1](https://github.com/beeflow/BeeflowAjaxPy/commit/4b00ac1369349586b9b74fc1510a004b4868875f) by Rafal Przetakowski).
 

@@ -56,15 +56,39 @@ const rowDown = (element_id) => {
     }
 }
 
-var BeeflowAjax = BeeflowAjax || {};
-var pingFunctions = [];
+const parameterfy = (function () {
+    // https://stackoverflow.com/a/11796776/24277478
+    var pattern = /[^(]*\(([^)]*)\)/;
+
+    return function (func) {
+        // fails horribly for parameterless functions ;)
+        var args = func.toString().match(pattern)[1].split(/,\s*/);
+
+        return function () {
+            var named_params = arguments[arguments.length - 1];
+            if (typeof named_params === 'object') {
+                var params = [].slice.call(arguments, 0, -1);
+                if (params.length < args.length) {
+                    for (var i = params.length, l = args.length; i < l; i++) {
+                        params.push(named_params[args[i]]);
+                    }
+                    return func.apply(this, params);
+                }
+            }
+            return func.apply(null, arguments);
+        };
+    };
+}());
+
+const BeeflowAjax = {};
+const pingFunctions = [];
 
 BeeflowAjax.ws = null
 
 /**
- * You can easy use toastr or write your own methods to show messages
+ * You can easily use 'toastr' or 'sweetalerts' or write your own methods to show messages
  */
-var BeeflowMessageComponent = BeeflowMessageComponent || {};
+const BeeflowMessageComponent = {};
 
 BeeflowMessages = {
     'Internal Server Error': 'Internal Server Error',
@@ -175,7 +199,7 @@ BeeflowAjax.websocket = {
     }
 }
 
-BeeflowAjax.send = function (url, params, clicked_button, callback, callMethod) {
+BeeflowAjax.send = parameterfy(function (url, params, clicked_button, callback, callMethod, callbackCommands) {
     $(clicked_button).addClass('disabled');
     var icon = $(clicked_button).children()[0];
     if (typeof icon !== 'undefined') {
@@ -202,6 +226,12 @@ BeeflowAjax.send = function (url, params, clicked_button, callback, callMethod) 
         if (callback && typeof (callback) === "function") {
             callback(msg);
         }
+
+        if (callbackCommands && Array.isArray(callbackCommands)) {
+            callbackCommands.forEach((command) => {
+                BeeflowAjax.ajaxResponseCommands(command);
+            })
+        }
     }).fail(function (responseMessage) {
         if (!responseMessage.responseText) {
             BeeflowMessageComponent.internalServerError()
@@ -219,7 +249,7 @@ BeeflowAjax.send = function (url, params, clicked_button, callback, callMethod) 
         $(clicked_button).removeClass('disabled');
     });
 
-};
+});
 
 BeeflowAjax.pingRegister = function (functionName, regFunction) {
     pingFunctions[functionName] = regFunction;
@@ -293,7 +323,6 @@ BeeflowAjax.ajaxResponseCommands = function (msg) {
                 );
                 break;
             case "appendElements":
-                console.log(msg[index]['elements'])
                 msg[index]['elements'].forEach((element) => {
                     document.querySelector(msg[index]['id']).appendChild(
                         BeeflowAjax.build.element(element)
@@ -372,7 +401,17 @@ BeeflowAjax.ajaxResponseCommands = function (msg) {
                 BeeflowAjax.initWebSocketForm();
                 break;
             case "initAjaxSelect":
-                BeeflowAjax.initAjaxSelect();
+                const params = {}
+                if (msg[index]['callback']) {
+                    params.callback = msg[index]['callback']
+                }
+                if (msg[index]['callbackParams']) {
+                    params.callbackParams = msg[index]['callbackParams']
+                }
+                if (msg[index]['callbackCommands']) {
+                    params.callbackCommands = msg[index]['callbackCommands']
+                }
+                BeeflowAjax.initAjaxSelect(params);
                 break;
             case "loadScript":
                 BeeflowAjax.loadScript(msg[index]['script'], msg[index]['callback']);
@@ -537,7 +576,7 @@ BeeflowAjax.initAjaxLinks = function () {
     });
 };
 
-BeeflowAjax.initAjaxSelect = function (elementId) {
+BeeflowAjax.initAjaxSelect = parameterfy(function (elementId, callback, callbackParams, callbackCommands) {
     $("select").each(function () {
         if (typeof $(this).data('ajax-datasource') !== 'undefined' && (typeof elementId === 'undefined' || elementId === $(this).attr('id'))) {
             $(this).unbind('change');
@@ -551,10 +590,12 @@ BeeflowAjax.initAjaxSelect = function (elementId) {
             var url_value = url('?' + $(this).data('url-value'), decodeURIComponent(url()));
             var default_value = ($(this).data('default-value') === 'undefined') ? null : $(this).data('default-value');
             var selected_value = (url_value == null) ? default_value : url_value;
+
             if (typeof $(this).attr('multiple') === 'undefined') {
                 var option = new Option('--', 0, (selected_value == null) ? true : false, (selected_value == null) ? true : false);
                 $element.append(option);
             }
+
             $request.then(function (data) {
                 if ("string" === typeof data) {
                     var data = JSON.parse(data);
@@ -569,10 +610,22 @@ BeeflowAjax.initAjaxSelect = function (elementId) {
                     var option = new Option(item.text, item.id, selected, selected);
                     $element.append(option);
                 }
+
+                if (callback && typeof (callback) === "function") {
+                    if (callbackParams) {
+                        callback(callbackParams);
+                    } else {
+                        callback();
+                    }
+                }
+
+                if (callbackCommands && Array.isArray(callbackCommands)) {
+                    BeeflowAjax.ajaxResponseCommands(callbackCommands);
+                }
             });
         }
     });
-};
+});
 
 function inArray(needle, haystack) {
     if (typeof haystack === 'string') {

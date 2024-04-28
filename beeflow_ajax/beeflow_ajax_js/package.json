@@ -1,6 +1,6 @@
 {
   "name": "@beeflow/beeflow_ajax_js",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Library to maintain ajax and websockets communication without writing complicated code in JS",
   "main": "BeeflowAjax.js",
   "scripts": {
