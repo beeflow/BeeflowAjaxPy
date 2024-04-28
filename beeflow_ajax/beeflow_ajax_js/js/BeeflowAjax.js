@@ -539,7 +539,7 @@ BeeflowAjax.initAjaxLinks = function () {
 
 BeeflowAjax.initAjaxSelect = function (elementId) {
     $("select").each(function () {
-        if (typeof $(this).data('ajax-datasource') !== 'undefined' && elementId == $(this).attr('id')) {
+        if (typeof $(this).data('ajax-datasource') !== 'undefined' && (typeof elementId === 'undefined' || elementId === $(this).attr('id'))) {
             $(this).unbind('change');
             $(this).find('option').remove();
 

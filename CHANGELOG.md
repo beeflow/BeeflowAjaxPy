@@ -23,11 +23,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
+- Fix initAjaxSelect function ([bdf4017](https://github.com/beeflow/BeeflowAjaxPy/commit/bdf40174eb2948e9f92835c45c39473f2d09adb8) by Rafal Przetakowski).
 - Fix JS, remove most of the console logs and align python version ([782e1e4](https://github.com/beeflow/BeeflowAjaxPy/commit/782e1e471d34211f2c4d9feff650095aaea37009) by Rafal Przetakowski).
 - Fix message functions ([4b00ac1](https://github.com/beeflow/BeeflowAjaxPy/commit/4b00ac1369349586b9b74fc1510a004b4868875f) by Rafal Przetakowski).
 
 ### Changed
 
+- Changelog update ([6a03a40](https://github.com/beeflow/BeeflowAjaxPy/commit/6a03a4058131bef746c729728064a69e61c7eccc) by Rafal Przetakowski).
 - Change add command method name and fix for web socket ([ec07c78](https://github.com/beeflow/BeeflowAjaxPy/commit/ec07c78ed991b5dd27dd3e2ba6368376114648b9) by Rafal Przetakowski).
 
 ### Removed
