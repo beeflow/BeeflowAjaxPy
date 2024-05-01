@@ -12,7 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Add possibility to register own methods and refactor JS and Python code ([871404c](https://github.com/beeflow/BeeflowAjaxPy/commit/871404c429a193cd526e834186eb2da9c912d353) by Rafal Przetakowski).
+- Add information about the custom commands ([01a85a1](https://github.com/beeflow/BeeflowAjaxPy/commit/01a85a13a2fd1be8eb1248f975fe18a76a087c46) by Rafal Przetakowski).
+- Add possibility to register own methods and refactor JS and Python code ([29760d4](https://github.com/beeflow/BeeflowAjaxPy/commit/29760d4fc937e92302ff533c94f8111f973c1601) by Rafal Przetakowski).
 - Add insertAfter and formFieldError actions ([defa245](https://github.com/beeflow/BeeflowAjaxPy/commit/defa24546214adc22bb185bdc573294224ee981f) by Rafal Przetakowski).
 - Add callback and callbackCommands to the send and initAjaxSelect methods and function that allows calling functions only with specific parameters ([3e80645](https://github.com/beeflow/BeeflowAjaxPy/commit/3e8064586428ff1ddc891b85158bd9f64584a86b) by Rafal Przetakowski).
 - Added option to move rows up and down with animation ([6eec88a](https://github.com/beeflow/BeeflowAjaxPy/commit/6eec88a46dab7756098100b200d97c0c554aa290) by Rafal Przetakowski).

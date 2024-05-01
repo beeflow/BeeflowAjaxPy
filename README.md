@@ -123,6 +123,25 @@ async def new_game(db: Session = Depends(get_db)):
     return ajax.assign("#some-html-element-id", f"Received id: {id}").response()
 ```
 
+## Custom commands
+You can register custom commands
+
+```javascript
+BeeflowAjax.addCommandHandler(
+    'customCommand', (data) => { alert(data['message']) }
+)
+```
+
+```python
+def handle_custom_data(data: Dict[str, Any]) -> 'AjaxResponse':
+    ajax = AjaxResponse()
+    ajax.add_command("customCommand", data)
+    return ajax
+
+
+ajax = AjaxResponse()
+ajax.register_command_handler("customCommand", handle_custom_data)
+```
 ## Development
 
 First install `pre-commit`
