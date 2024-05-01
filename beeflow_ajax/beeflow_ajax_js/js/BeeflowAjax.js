@@ -391,6 +391,9 @@ BeeflowAjax.ajaxResponseCommands = function (msg) {
             case "insertBefore":
                 $(msg[index]['data']).insertBefore(msg[index]['id']);
                 break;
+            case "insertAfter":
+                $(msg[index]['data']).insertAfter(msg[index]['id']);
+                break;
             case "initAjaxLinks":
                 BeeflowAjax.initAjaxLinks();
                 break;
@@ -424,6 +427,9 @@ BeeflowAjax.ajaxResponseCommands = function (msg) {
                 break;
             case "setAttribute":
                 document.querySelector(msg[index]['id']).setAttribute(msg[index]['attribute'], msg[index]['value']);
+                break;
+            case "formFieldError":
+                BeeflowAjax.formFieldError(mgg[index]['id'], msg[index]['error_message']);
                 break;
         }
     }
@@ -727,34 +733,28 @@ BeeflowAjax.build = {
     }
 }
 
+/**
+ * Displays a validation error message beneath a specified form field.
+ *
+ * This function adds an 'is-invalid' class to the form field and appends a
+ * div with the 'invalid-feedback' class containing the error message
+ * to the field's parent container.
+ *
+ * @param formFieldId
+ * @param errorMessage
+ */
+BeeflowAjax.formFieldError = function (formFieldId, errorMessage) {
 
-const elementsArray3 = [
-    {
-        "elementType": "element",
-        "elementName": "li",
-        "class": "label label-warning",
-        "innerElement": {
-            "elementType": "element",
-            "elementName": "a",
-            "href": "https://google.pl",
-            "title": "Google",
-            "innerText": "Google"
+    const formField = document.querySelector(formFieldId)
+    const formFieldContainer = formField.parentNode
 
-        }
-    },
-    {
-        "elementType": "element",
-        "elementName": "li",
-        "class": "label label-warning",
-        "innerElement": {
-            "elementType": "element", "elementName": "a",
-            "href": "https://example.com",
-            "title": "Example",
-            "innerText": "Example"
+    formField.classList.add("is-invalid")
+    const feedback = document.createElement("div")
+    feedback.className = "invalid-feedback"
+    feedback.innerHTML = errorMessage
 
-        }
-    }
-]
+    formFieldContainer.appendChild(feedback)
+}
 
 $(document).ready(function () {
     BeeflowAjax.initAjaxForms();

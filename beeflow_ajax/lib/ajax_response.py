@@ -34,6 +34,7 @@ class AjaxResponse:
     SHOW = "show"
     HIDE = "hide"
     INSERT_BEFORE = "insertBefore"
+    INSERT_AFTER = "insertAfter"
     INIT_AJAX_LINKS = "initAjaxLinks"
     INIT_AJAX_SELECT = "initAjaxSelect"
     INIT_AJAX_FORMS = "initAjaxForms"
@@ -45,6 +46,7 @@ class AjaxResponse:
     SET_ATTRIBUTE = "setAttribute"
     ROW_UP = "rowUp"
     ROW_DOWN = "rowDown"
+    FORM_FIELD_ERROR = "formFieldError"
 
     def __init__(self, response=None):
         """Constructor prepares commands list."""
@@ -249,6 +251,11 @@ class AjaxResponse:
         self._add_command(self.INSERT_BEFORE, {"id": element}, value)
         return self
 
+    def insert_after(self, element: str, value: str) -> Self:
+        """Inserts value after element."""
+        self._add_command(self.INSERT_AFTER, {"id": element}, value)
+        return self
+
     def init_ajax_links(self) -> Self:
         """Initialize ajax links."""
         self._add_command(self.INIT_AJAX_LINKS)
@@ -307,6 +314,10 @@ class AjaxResponse:
     def row_down(self, element: str) -> Self:
         """Move table row (or other element) down."""
         self._add_command(self.ROW_DOWN, {"id": element})
+        return self
+
+    def form_field_error(self, element: str, error_message: str) -> Self:
+        self._add_command(self.FORM_FIELD_ERROR, {"id": element, "error_message": error_message})
         return self
 
     def _add_command(self, command: str, attributes: Dict = None, m_data=None) -> Self:
