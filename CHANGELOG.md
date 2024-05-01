@@ -12,7 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Add callback and callbackCommands to the send and initAjaxSelect methods and function that allows calling functions only with specific parameters ([a14acd5](https://github.com/beeflow/BeeflowAjaxPy/commit/a14acd5a7ac140b7b30d463dab5e0d4a48202068) by Rafal Przetakowski).
+- Add possibility to register own methods and refactor JS and Python code ([871404c](https://github.com/beeflow/BeeflowAjaxPy/commit/871404c429a193cd526e834186eb2da9c912d353) by Rafal Przetakowski).
+- Add insertAfter and formFieldError actions ([defa245](https://github.com/beeflow/BeeflowAjaxPy/commit/defa24546214adc22bb185bdc573294224ee981f) by Rafal Przetakowski).
+- Add callback and callbackCommands to the send and initAjaxSelect methods and function that allows calling functions only with specific parameters ([3e80645](https://github.com/beeflow/BeeflowAjaxPy/commit/3e8064586428ff1ddc891b85158bd9f64584a86b) by Rafal Przetakowski).
 - Added option to move rows up and down with animation ([6eec88a](https://github.com/beeflow/BeeflowAjaxPy/commit/6eec88a46dab7756098100b200d97c0c554aa290) by Rafal Przetakowski).
 - Add option to assign and append elements plus html models to handle elements ([3c764a6](https://github.com/beeflow/BeeflowAjaxPy/commit/3c764a6f5d23b739cd0c8993c2f5b5cb1fd0596a) by Rafal Przetakowski).
 - Added append text to the element ([40d2e9a](https://github.com/beeflow/BeeflowAjaxPy/commit/40d2e9a6bb87e98cadbf0432d90d2d9f1b99de05) by Rafal Przetakowski).

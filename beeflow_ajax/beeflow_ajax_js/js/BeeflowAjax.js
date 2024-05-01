@@ -283,156 +283,106 @@ BeeflowAjax.loadScript = function ($scriptName, $callback) {
     });
 };
 
-BeeflowAjax.ajaxResponseCommands = function (msg) {
-    for (let index = 0, len = msg.length; index < len; ++index) {
-        var command = msg[index]['cmd'];
-        switch (command) {
-            case "alert" :
-                alert(msg[index]['data']);
-                break;
-            case "alertSuccess" :
-                BeeflowMessageComponent.success(msg[index]['data'], msg[index]['title'], msg[index]['callback']);
-                break;
-            case "alertError" :
-                BeeflowMessageComponent.error(msg[index]['data'], msg[index]['title'], msg[index]['callback']);
-                break;
-            case "alertWarning" :
-                BeeflowMessageComponent.warning(msg[index]['data'], msg[index]['title'], msg[index]['callback']);
-                break;
-            case "alertInfo" :
-                BeeflowMessageComponent.info(msg[index]['data'], msg[index]['title'], msg[index]['callback']);
-                break;
-            case "debug" :
-                console.log(msg[index]['data']);
-                break;
-            case "remove" :
-                BeeflowAjax.remove(msg[index]['id']);
-                break;
-            case "rowUp" :
-                rowUp(msg[index]['id']);
-                break;
-            case "rowDown" :
-                rowDown(msg[index]['id']);
-                break;
-            case "append" :
-                $(msg[index]['id']).append(msg[index]['data']);
-                break;
-            case "appendElement":
-                document.querySelector(msg[index]['id']).appendChild(
-                    BeeflowAjax.build.element(msg[index]['element'])
-                );
-                break;
-            case "appendElements":
-                msg[index]['elements'].forEach((element) => {
-                    document.querySelector(msg[index]['id']).appendChild(
-                        BeeflowAjax.build.element(element)
-                    );
-                });
-                break;
-            case "assignElement":
-                let elementContainer = document.querySelector(msg[index]['id']);
-                elementContainer.innerHTML = "";
-                elementContainer.appendChild(
-                    BeeflowAjax.build.element(msg[index]['element'])
-                );
-                break;
-            case "assignElements":
-                let elementsContainer = document.querySelector(msg[index]['id']);
-                elementsContainer.innerHTML = "";
-                msg[index]['elements'].forEach((element) => {
-                    elementsContainer.appendChild(
-                        BeeflowAjax.build.element(element)
-                    );
-                });
-                break;
-            case "appendList":
-                document.querySelector(msg[index]['id']).appendChild(
-                    BeeflowAjax.build.list(msg[index]['list_type'], msg[index]['element'])
-                );
-                break;
-            case "assignList":
-                let listContainer = document.querySelector(msg[index]['id']);
-                listContainer.innerHTML = "";
-                listContainer.appendChild(
-                    BeeflowAjax.build.list(msg[index]['list_type'], msg[index]['element'])
-                );
-                break;
-            case "assign" :
-                $(msg[index]['id']).html(msg[index]['data']);
-                break;
-            case "addClass" :
-                $(msg[index]['id']).addClass(msg[index]['data']);
-                break;
-            case "removeClass" :
-                if (msg[index]['data'] == null) {
-                    $(msg[index]['id']).removeClass();
-                } else {
-                    $(msg[index]['id']).removeClass(msg[index]['data']);
-                }
-                break;
-            case "redirect" :
-                window.location.href = msg[index]['url'];
-                break;
-            case "reloadLocation":
-                window.location.reload();
-                break;
-            case "runScript" :
-                jQuery.globalEval(msg[index]['data']);
-                break;
-            case "modal" :
-                $(msg[index]['id']).modal(msg[index]['data']);
-                break;
-            case "show" :
-                $(msg[index]['id']).show();
-                break;
-            case "hide" :
-                $(msg[index]['id']).hide();
-                break;
-            case "insertBefore":
-                $(msg[index]['data']).insertBefore(msg[index]['id']);
-                break;
-            case "insertAfter":
-                $(msg[index]['data']).insertAfter(msg[index]['id']);
-                break;
-            case "initAjaxLinks":
-                BeeflowAjax.initAjaxLinks();
-                break;
-            case "initAjaxForms":
-                BeeflowAjax.initAjaxForms();
-                break;
-            case "initWebsocketForms":
-                BeeflowAjax.initWebSocketForm();
-                break;
-            case "initAjaxSelect":
-                const params = {}
-                if (msg[index]['callback']) {
-                    params.callback = msg[index]['callback']
-                }
-                if (msg[index]['callbackParams']) {
-                    params.callbackParams = msg[index]['callbackParams']
-                }
-                if (msg[index]['callbackCommands']) {
-                    params.callbackCommands = msg[index]['callbackCommands']
-                }
-                BeeflowAjax.initAjaxSelect(params);
-                break;
-            case "loadScript":
-                BeeflowAjax.loadScript(msg[index]['script'], msg[index]['callback']);
-                break;
-            case "returnJson":
-                break;
-            case "setInputValue":
-                $(msg[index]['id']).val("");
-                $(msg[index]['id']).val(msg[index]['data']);
-                break;
-            case "setAttribute":
-                document.querySelector(msg[index]['id']).setAttribute(msg[index]['attribute'], msg[index]['value']);
-                break;
-            case "formFieldError":
-                BeeflowAjax.formFieldError(mgg[index]['id'], msg[index]['error_message']);
-                break;
+BeeflowAjax.commandHandlers = {
+    alert: (data) => alert(data['data']),
+    alertSuccess: (data) => BeeflowMessageComponent.success(data['data'], data['title'], data['callback']),
+    alertError: (data) => BeeflowMessageComponent.error(data['data'], data['title'], data['callback']),
+    alertWarning: (data) => BeeflowMessageComponent.warning(data['data'], data['title'], data['callback']),
+    alertInfo: (data) => BeeflowMessageComponent.info(data['data'], data['title'], data['callback']),
+    debug: (data) => console.log(data['data']),
+    remove: (data) => document.querySelector(data['id']).remove(),
+    rowUp: (data) => rowUp(data['id']),
+    rowDown: (data) => rowDown(data['id']),
+    append: (data) => document.querySelector(data['id']).insertAdjacentHTML('beforeend', data['data']),
+    appendElement: (data) => document.querySelector(data['id']).appendChild(BeeflowAjax.build.element(data['element'])),
+    appendElements: (data) => {
+        data['elements'].forEach((element) => {
+            document.querySelector(data['id']).appendChild(
+                BeeflowAjax.build.element(element)
+            );
+        })
+    },
+    assignElement: (data) => {
+        const elementContainer = document.querySelector(data['id']);
+        elementContainer.innerHTML = "";
+        elementContainer.appendChild(BeeflowAjax.build.element(data['element']));
+    },
+    assignElements: (data) => {
+        let elementsContainer = document.querySelector(data['id']);
+        elementsContainer.innerHTML = "";
+        data['elements'].forEach((element) => {
+            elementsContainer.appendChild(
+                BeeflowAjax.build.element(element)
+            );
+        });
+    },
+    appendList: (data) => {
+        document.querySelector(data['id']).appendChild(
+            BeeflowAjax.build.list(data['list_type'], data['element'])
+        );
+    },
+    assignList: (data) => {
+        let listContainer = document.querySelector(data['id']);
+        listContainer.innerHTML = "";
+        listContainer.appendChild(
+            BeeflowAjax.build.list(data['list_type'], data['element'])
+        );
+    },
+    assign: (data) => $(data['id']).html(data['data']),
+    addClass: (data) => $(data['id']).addClass(data['data']),
+    removeClass: (data) => {
+        if (data['data'] == null) {
+            $(data['id']).removeClass();
+        } else {
+            $(data['id']).removeClass(data['data']);
         }
-    }
+    },
+    insertBefore: (data) => $(data['data']).insertBefore(data['id']),
+    insertAfter: (data) => $(data['data']).insertAfter(data['id']),
+    initAjaxLinks: (data) => BeeflowAjax.initAjaxLinks(),
+    initAjaxForms: (data) => BeeflowAjax.initAjaxForms(),
+    initWebsocketForms: (data) => BeeflowAjax.initWebsocketForms(),
+    initAjaxSelect: (data) => {
+        const params = {}
+        if (data['callback']) {
+            params.callback = data['callback']
+        }
+        if (data['callbackParams']) {
+            params.callbackParams = data['callbackParams']
+        }
+        if (data['callbackCommands']) {
+            params.callbackCommands = data['callbackCommands']
+        }
+        BeeflowAjax.initAjaxSelect(params);
+    },
+    redirect: (data) => window.location.href = data['url'],
+    reloadLocation: () => window.location.reload(),
+    runScript: (data) => eval(data['data']),
+    modal: (data) => $(data['id']).modal(data['data']),
+    show: (data) => document.querySelector(data['id']).style.display = 'block',
+    hide: (data) => document.querySelector(data['id']).style.display = 'none',
+    setInputValue: (data) => {
+        const input = document.querySelector(data['id']);
+        input.value = data['data'];
+    },
+    setAttribute: (data) => document.querySelector(data['id']).setAttribute(data['attribute'], data['value']),
+    loadScript: (data) => BeeflowAjax.loadScript(data['script'], data['callback']),
+    formFieldError: (data) => BeeflowAjax.formFieldError(data, data['error_message']),
+};
+
+BeeflowAjax.ajaxResponseCommands = function (msg) {
+    msg.forEach((commandData) => {
+        const commandHandler = BeeflowAjax.commandHandlers[commandData.cmd];
+        if (commandHandler) {
+            commandHandler(commandData);
+        } else {
+            console.error("Unhandled command:", commandData.cmd);
+        }
+    });
+};
+
+BeeflowAjax.addCommandHandler = function (commandName, handlerFunction) {
+    BeeflowAjax.commandHandlers[commandName] = handlerFunction;
 };
 
 BeeflowAjax.setFormFeedback = function (elementId, feedbackType) {
