@@ -3,7 +3,7 @@
 @author Rafal Przetakowski <rafal.p@beeflow.co.uk>"""
 
 import json
-from typing import Any, Callable, Dict, List, Optional, Self, TypeVar
+from typing import Any, Callable, Dict, List, Optional, TypeVar
 
 from beeflow_ajax.lib.html_models.base_html_model import BaseHTMLModel
 

@@ -1,0 +1,43 @@
+#ifndef BEEFLOW_AJAX_H
+#define BEEFLOW_AJAX_H
+
+#include <Python.h>
+
+#define ALERT "alert"
+#define ALERT_SUCCESS "alertSuccess"
+#define ALERT_ERROR "alertError"
+#define ALERT_WARNING "alertWarning"
+#define ALERT_INFO "alertInfo"
+#define DEBUG "debug"
+#define APPEND "append"
+#define ASSIGN "assign"
+#define APPEND_ELEMENT "appendElement"
+#define APPEND_ELEMENTS "appendElements"
+#define ASSIGN_ELEMENT "assignElement"
+#define ASSIGN_ELEMENTS "assignElements"
+#define APPEND_LIST "appendList"
+#define ASSIGN_LIST "assignList"
+#define REDIRECT "redirect"
+#define RELOAD_LOCATION "reloadLocation"
+#define REMOVE "remove"
+#define ADD_CLASS "addClass"
+#define REMOVE_CLASS "removeClass"
+#define RUN_SCRIPT "runScript"
+#define SHOW "show"
+#define HIDE "hide"
+#define INSERT_BEFORE "insertBefore"
+#define INSERT_AFTER "insertAfter"
+#define INIT_AJAX_LINKS "initAjaxLinks"
+#define INIT_AJAX_SELECT "initAjaxSelect"
+#define INIT_AJAX_FORMS "initAjaxForms"
+#define LOAD_SCRIPT "loadScript"
+#define SET_INPUT_VALUE "setInputValue"
+#define MODAL "modal"
+#define URL "setUrl"
+#define SET_FORM_ACTION "setFormAction"
+#define SET_ATTRIBUTE "setAttribute"
+#define ROW_UP "rowUp"
+#define ROW_DOWN "rowDown"
+#define FORM_FIELD_ERROR "formFieldError"
+
+#endif // BEEFLOW_AJAX_H

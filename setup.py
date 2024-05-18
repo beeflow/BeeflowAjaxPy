@@ -8,9 +8,12 @@ import setuptools
 
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
+module = setuptools.Extension('beeflow_ajax', sources=['beeflow_ajax/src/beeflow_ajax.c'])
+
+
 setuptools.setup(
     name="beeflow-ajax",
-    version="1.0.18",
+    version="2.0.0",
     author="Rafal Przetakowski",
     author_email="office@beeflow.co.uk",
     description="Library to maintain ajax and websockets communication without writing complicated code in JS",
@@ -24,4 +27,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.11",
+    ext_modules=[module]
 )
